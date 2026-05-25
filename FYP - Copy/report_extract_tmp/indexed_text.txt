@@ -1,0 +1,1519 @@
+0000: FINAL YEAR PROJECT REPORT
+0001: Spring Term 2026
+0002: Nigahbaan
+0003: Smart Elderly Care & Monitoring System
+0004: [ IBIT Logo ]
+0005: Submitted To:
+0006: Sir Ali Nawaz
+0007: Submitted By:
+0008: F22BB002
+0009: Zainab Anwaar
+0010: F22BB012
+0011: Rabia Haider
+0012: F22BB014
+0013: Areeba Farooq
+0014: F22BB020
+0015: Zarafshan Ashraf
+0016: Date: April 27, 2026
+0017: Institute of Business & Information Technology (IBIT)
+0018: University of the Punjab, Lahore
+0019: Executive Summary
+0020: Nigahbaan (meaning "Guardian" or "Watchful" in Urdu) is a comprehensive, web-based Smart Elderly Care and Monitoring System developed as the Final Year Project for the Spring 2026 term at the Institute of Business and Information Technology (IBIT), University of the Punjab. The platform directly addresses one of the most pressing societal challenges: ensuring the continuous dignity, safety, health, and emotional wellbeing of elderly individuals — particularly those whose families reside abroad or are unable to maintain a constant physical presence.
+0021: The platform integrates five core capability pillars into a single, unified digital ecosystem:
+0022: Real-time health monitoring and medication management
+0023: AI-powered companionship chatbot for emotional support and cognitive engagement
+0024: Comprehensive Family Dashboard for remote, real-time oversight
+0025: Emergency SOS and fall detection alert system
+0026: GPS-based tracking and geofencing for dementia and cognitive impairment management
+0027: Nigahbaan is built on a modern, scalable technology stack: React.js for both the elderly-facing user portal and the family/caregiver dashboard, supported by a Node.js + Express.js backend API connected to a MongoDB Atlas cloud database. Third-party integrations include the OpenAI API for the NLP-powered chatbot, Firebase Cloud Messaging for push notifications, Twilio for SMS-based emergency alerts, Google Maps API for GPS and geofencing, and SendGrid for email delivery.
+0028: This report documents the complete project lifecycle: from problem identification and objectives through software requirements specification, system design, technical architecture, database schema, API design, security strategy, and web application implementation.
+0029: Acknowledgements
+0030: First and foremost, we express our profound gratitude to Allah Almighty for granting us the strength, patience, wisdom, and perseverance to successfully design, develop, and document this project from inception to completion.
+0031: We extend our heartfelt and sincere thanks to our esteemed project supervisor, Sir Ali Nawaz, for his unwavering guidance, constructive feedback, and consistent encouragement throughout every phase of this project. His technical insights, mentorship, and dedication to our growth as software engineers were truly instrumental in shaping Nigahbaan into the comprehensive platform it is today.
+0032: We would also like to acknowledge the faculty and staff of the Institute of Business and Information Technology (IBIT), University of the Punjab, for providing us with an environment that fosters innovation, technical rigor, and professional development.
+0033: A special acknowledgement is owed to our families for their constant moral support and encouragement, and to our fellow classmates for their collaborative spirit and constructive discussions throughout the project.
+0034: Finally, we dedicate this work to every elderly individual who deserves to age with dignity, safety, and the knowledge that they are never truly alone.
+0035: Table of Contents
+0036: Executive Summary2
+0037: Acknowledgements3
+0038: Table of Contents4
+0039: Chapter 17
+0040: 1.1 Background & Motivation7
+0041: 1.2 Problem Statement7
+0042: 1.3 Project Objectives7
+0043: 1.4 Core Features Overview8
+0044: 1.5 Target Users9
+0045: 1.6 System Workflow9
+0046: Chapter 210
+0047: 2.1 Purpose & Document Conventions10
+0048: 2.2 Product Scope & Overview10
+0049: 2.3 Scope11
+0050: 2.4 Tools, Languages & Libraries11
+0051: Frontend11
+0052: Backend11
+0053: Database11
+0054: AI & Third-Party Integrations11
+0055: Hosting & DevOps12
+0056: 2.5 Functional Requirements12
+0057: 2.5.1 User Authentication & Account Management12
+0058: 2.5.2 Health Monitoring Module12
+0059: 2.5.3 AI Companionship Chatbot Module13
+0060: 2.5.4 Emergency Alert System13
+0061: 2.5.5 GPS & Geofencing Module13
+0062: 2.6 Non-Functional Requirements14
+0063: Chapter 315
+0064: 3.1 Introduction15
+0065: 3.2 System Architecture15
+0066: 3.3 Technology Stack15
+0067: 3.4 UML Diagrams16
+0068: 3.4.1 Use Case Diagram16
+0069: 3.4.2 Use Case Reports17
+0070: 3.4.3 Sequence Diagrams20
+0071: 3.4.4 State Chart Diagrams22
+0072: 3.4.5 Class Diagram23
+0073: 3.5 Database Schema25
+0074: 3.5.1 Users Collection25
+0075: 3.5.2 VitalRecords Collection25
+0076: 3.5.3 Medications Collection25
+0077: 3.5.4 Alerts Collection26
+0078: 3.6 API Design26
+0079: Chapter 428
+0080: 4.1 Security Design28
+0081: 4.1.1 Authentication Architecture28
+0082: 4.1.2 Role-Based Access Control (RBAC)28
+0083: 4.1.3 Data Protection Measures28
+0084: 4.2 Deployment Architecture29
+0085: 4.2.1 CI/CD Pipeline29
+0086: Chapter 530
+0087: 5.1 Technical Feasibility30
+0088: 5.2 Operational Feasibility30
+0089: 5.3 Economic Feasibility30
+0090: 5.4 Risk Identification & Mitigation30
+0091: Chapter 632
+0092: 6.1 Development Methodology32
+0093: 6.2 Team Roles & Responsibilities32
+0094: 6.3 Project Timeline32
+0095: 6.4 Testing Strategy32
+0096: Chapter 734
+0097: 7.1 Elderly User Portal34
+0098: 7.1.1 Elderly User Home Screen34
+0099: 7.1.2 Health Vitals Input Screen34
+0100: 7.1.3 AI Chatbot Companion Screen35
+0101: 7.1.4 Medication Schedule Screen35
+0102: 7.1.5 SOS Emergency Alert Screen35
+0103: 7.2 Family Dashboard37
+0104: 7.2.1 Family Dashboard Home37
+0105: 7.2.2 Health Monitoring Dashboard37
+0106: 7.2.3 GPS Tracking & Geofencing Screen37
+0107: 7.2.4 Alert Management Screen38
+0108: 7.2.5 Medication Management Screen38
+0109: 7.2.6 Chatbot Interaction Log Screen38
+0110: 7.3 Registration & Authentication Screens40
+0111: 7.3.1 Registration Screen40
+0112: 7.3.2 Login Screen40
+0113: 7.4 User Settings Screen40
+0114: 7.5 Caregiver Dashboard41
+0115: Chapter 842
+0116: 8.1 Conclusion42
+0117: 8.2 Recommendations for Future Enhancements42
+0118: Phase 2 Enhancements42
+0119: Phase 3 Enhancements43
+0120: References44
+0121: Chapter 1
+0122: Introduction
+0123: 1.1 Background & Motivation
+0124: In today's fast-paced and increasingly mobile world, profound demographic shifts and urbanization trends are fundamentally reshaping family structures across Pakistan and South Asia. With more children migrating abroad for higher education or employment opportunities, and with a significant rise in elderly populations living alone, the need for intelligent, integrated elderly care solutions has never been more urgent.
+0125: Elderly individuals face a complex and compounding range of challenges: the management of chronic health conditions such as hypertension, diabetes, and heart disease; the ever-present risk of falls; the cognitive and safety risks associated with Alzheimer's and dementia; and the profound psychological burden of loneliness and social isolation. The healthcare technology landscape has historically responded to these challenges in fragmented, siloed ways.
+0126: Nigahbaan emerges as a direct, purposeful response to this gap. The name itself — Urdu for "Guardian" or "Watchful Eye" — reflects the platform's fundamental mission: to be a constant digital guardian for elderly individuals while simultaneously serving as a trusted bridge between them, their families, and their caregivers.
+0127: 1.2 Problem Statement
+0128: Despite significant advancements in healthcare and mobile technology, elderly individuals and their families continue to face serious, largely unresolved challenges:
+0129: Adult children who have migrated abroad face a critical care gap — they cannot continuously monitor the health, safety, and daily wellbeing of their elderly parents.
+0130: Elderly individuals suffering from dementia may wander away from home, forget medications, or be unable to seek help during a medical emergency.
+0131: Loneliness and social isolation constitute a silent epidemic severely impacting the mental and emotional health of older adults.
+0132: Families lack a single, integrated digital platform combining real-time health monitoring, emergency response, emotional companionship support, and caregiver coordination.
+0133: Existing platforms are frequently too technically complex for elderly users with limited digital literacy, or are prohibitively expensive for middle-income Pakistani families.
+0134: 1.3 Project Objectives
+0135: The primary objectives of Nigahbaan, which have guided every design and development decision, are as follows:
+0136: To design and develop a multi-user web platform serving three distinct user types: elderly individuals, family members, and professional caregivers — each with role-appropriate interfaces.
+0137: To implement a comprehensive, real-time health monitoring module that tracks vital statistics, generates health reports, and alerts families when readings exceed safe thresholds.
+0138: To build a medication reminder system with push notifications, SMS fallback, and adherence tracking.
+0139: To integrate an AI-powered companionship chatbot using the OpenAI API for meaningful daily engagement and emotional support.
+0140: To develop a comprehensive Family Dashboard providing remote, real-time visibility into the health vitals, GPS location, alert history, and medication adherence of linked elderly users.
+0141: To implement an Emergency SOS alert system with automated fall detection dispatching multi-channel notifications instantly.
+0142: To incorporate GPS tracking and geofencing functionality for managing and locating elderly individuals with dementia.
+0143: To ensure accessibility for elderly users through an elderly-first UI design: large fonts, high-contrast colors, and simplified navigation.
+0144: 1.4 Core Features Overview
+0145: Feature
+0146: Description
+0147: User Authentication & RBAC
+0148: Secure multi-role registration and login using JWT-based authentication and BCrypt.js password hashing. Role-based access control ensures each user type sees only permitted features.
+0149: Health Monitoring
+0150: Manual input and tracking of key vitals (heart rate, blood pressure, glucose, temperature, SpO2). Health records stored with timestamps and displayed as trend charts. Automated alerts for abnormal readings.
+0151: Medicine Reminders
+0152: Automated scheduling and multi-channel notification-based reminders (push, SMS) to ensure timely medication intake. Adherence tracking with taken/missed logging.
+0153: Emergency SOS Alerts
+0154: A prominent on-screen SOS button on the elderly user portal. Instant multi-channel alerts dispatched to all emergency contacts within 10 seconds, with the elderly user's last known location.
+0155: AI Chatbot Companion
+0156: An NLP-powered conversational chatbot via OpenAI GPT API that engages elderly users in friendly daily conversations, provides reminders, and detects distress indicators.
+0157: Family Dashboard
+0158: A real-time web dashboard providing family members with health updates, vital trends, activity logs, alert history, medication adherence, and GPS location for linked elderly relatives.
+0159: GPS & Geofencing
+0160: Google Maps API integration to track real-time and historical location. Configurable geofence safe zones with immediate breach alerts for dementia patient management.
+0161: Caregiver Integration
+0162: Professional caregivers can be assigned to elderly users and receive relevant health data, medication schedules, and alert updates through a dedicated interface.
+0163: Notifications & Alerts
+0164: Multi-channel notification delivery via Firebase Cloud Messaging (push), Twilio (SMS), and SendGrid (email alerts).
+0165: Health Report Generation
+0166: Downloadable PDF health reports covering vital trends, medication adherence rates, and alert history over configurable time periods.
+0167: 1.5 Target Users
+0168: Nigahbaan is designed for the following primary user segments:
+0169: Families with elderly parents — particularly those living abroad or unable to be physically present. These users are the primary drivers of platform demand.
+0170: Elderly individuals (60+) living alone or with limited family supervision who require health monitoring, medication reminders, and companionship support.
+0171: Healthcare professionals and certified caregivers seeking digital tools to efficiently manage and monitor multiple elderly clients.
+0172: Nursing homes and elderly care service providers looking for a scalable, centralized digital care management platform.
+0173: 1.6 System Workflow
+0174: Step
+0175: Actor
+0176: Action
+0177: 1
+0178: User
+0179: Registers on the platform and logs in. Role selection (elderly, family member, caregiver) determines their interface and permissions.
+0180: 2
+0181: Elderly User
+0182: Manually inputs health data (vitals) through their simplified web portal with large fonts and accessible navigation.
+0183: 3
+0184: System
+0185: Continuously processes incoming vitals, stores data in the cloud database, checks against safety thresholds, and generates health reports.
+0186: 4
+0187: Family Member
+0188: Accesses the Family Dashboard from any web browser to view real-time health metrics, GPS location, alert history, and medication adherence.
+0189: 5
+0190: AI Chatbot
+0191: Initiates daily greeting messages and wellness check-ins. Engages the elderly user in friendly conversation and provides medication reminders.
+0192: 6
+0193: System
+0194: On emergency event (fall detected or SOS button pressed), instant multi-channel alerts are dispatched to all family members and caregivers within 10 seconds.
+0195: 7
+0196: Caregiver
+0197: Receives real-time health updates and alert notifications for all assigned elderly users through their role-specific dashboard.
+0198: 8
+0199: System
+0200: GPS tracking continuously monitors the location of elderly users, alerting families immediately if they exit a predefined safe geofence zone.
+0201: Chapter 2
+0202: Software Requirements Specification
+0203: 2.1 Purpose & Document Conventions
+0204: This chapter defines the complete functional and non-functional requirements for the Nigahbaan Elderly Care Service Platform. It serves as the authoritative requirements reference for all stakeholders including developers, designers, testers, project managers, and the client supervisor.
+0205: Acronym / Convention
+0206: Definition
+0207: FR
+0208: Functional Requirement
+0209: NFR
+0210: Non-Functional Requirement
+0211: UC
+0212: Use Case
+0213: API
+0214: Application Programming Interface
+0215: SRS
+0216: Software Requirements Specification
+0217: JWT
+0218: JSON Web Token — Industry standard for stateless authentication
+0219: GPS
+0220: Global Positioning System
+0221: SOS
+0222: Save Our Souls — Emergency Signal
+0223: NLP
+0224: Natural Language Processing
+0225: RBAC
+0226: Role-Based Access Control
+0227: FCM
+0228: Firebase Cloud Messaging
+0229: WCAG
+0230: Web Content Accessibility Guidelines
+0231: SPA
+0232: Single Page Application
+0233: ODM
+0234: Object Document Mapper (used with MongoDB)
+0235: 2.2 Product Scope & Overview
+0236: The Nigahbaan Elderly Care Service Platform is a standalone, cloud-hosted SaaS product. The system integrates four primary sub-systems into a unified platform:
+0237: Elderly User Web Portal (React.js): A dedicated, simplified web interface for elderly individuals featuring large fonts (18pt minimum), high-contrast colors, minimal navigation steps, and a prominently displayed SOS button at all times.
+0238: Family/Caregiver Web Application (React.js): A feature-rich Single Page Application with real-time monitoring dashboards, interactive maps, health trend charts, and alert management.
+0239: Backend API (Node.js + Express.js): A RESTful API server implementing all business logic, authentication, data validation, third-party service orchestration, and notification dispatch. All endpoints versioned under /api/v1/.
+0240: AI/ML Integration Layer: Chatbot intelligence via OpenAI GPT-3.5-Turbo API, anomaly detection via statistical threshold comparison, and distress detection using rule-based NLP keyword classification.
+0241: Out of Scope for Version 1.0: Full custom IoT sensor hardware integration, direct medical diagnosis functionality, insurance claim processing, full multi-language support beyond English/Urdu, and video consultation features (planned for Phase 3).
+0242: 2.3 Scope
+0243: Nigahbaan is designed to cater to elderly individuals and their families seeking a powerful yet easy-to-use solution for care monitoring and health management. The scope includes:
+0244: Health Monitoring: Real-time tracking of vital health statistics with automated alerts.
+0245: Medication Reminders: Multi-channel reminder delivery and adherence tracking.
+0246: Emergency Response: SOS button and fall detection with instant multi-channel alerts.
+0247: AI Companionship: Daily conversational engagement to combat loneliness and isolation.
+0248: GPS & Geofencing: Location tracking and safe zone management for dementia patients.
+0249: Family Dashboard: Centralized remote monitoring for family members.
+0250: 2.4 Tools, Languages & Libraries
+0251: Frontend
+0252: React.js 18 (SPA framework)
+0253: Tailwind CSS (utility-first styling)
+0254: Redux Toolkit (global state management)
+0255: React Query (server state caching)
+0256: Chart.js / Recharts (health trend visualizations)
+0257: Backend
+0258: Node.js + Express.js (RESTful API server)
+0259: Mongoose ODM (MongoDB interaction)
+0260: Socket.IO (real-time WebSocket communication)
+0261: Express-validator (input validation & sanitization)
+0262: Helmet.js (security headers)
+0263: Database
+0264: MongoDB Atlas (cloud-hosted NoSQL database)
+0265: AI & Third-Party Integrations
+0266: OpenAI GPT-3.5-Turbo API (chatbot intelligence)
+0267: Firebase Cloud Messaging (push notifications)
+0268: Twilio SMS API (emergency SMS alerts)
+0269: SendGrid (transactional email delivery)
+0270: Google Maps Platform API (GPS tracking & geofencing)
+0271: Cloudinary / AWS S3 (PDF report & media storage)
+0272: Hosting & DevOps
+0273: Vercel (frontend CDN deployment)
+0274: Render / Heroku (backend server hosting)
+0275: GitHub Actions (CI/CD pipeline)
+0276: 2.5 Functional Requirements
+0277: 2.5.1 User Authentication & Account Management
+0278: Req ID
+0279: Description
+0280: Priority
+0281: Actor
+0282: FR-001
+0283: The system shall allow new users to register with full name, email, phone number, role, and password.
+0284: High
+0285: All Users
+0286: FR-002
+0287: The system shall verify the user email address via a confirmation link before activating the account.
+0288: High
+0289: All Users
+0290: FR-003
+0291: The system shall authenticate users via JWT with a session expiry of 24 hours.
+0292: High
+0293: System
+0294: FR-004
+0295: The system shall allow users to reset forgotten passwords via a secure email link valid for 15 minutes.
+0296: High
+0297: All Users
+0298: FR-005
+0299: The system shall enforce minimum password strength: 8 characters including uppercase, lowercase, number, and special character.
+0300: High
+0301: System
+0302: FR-006
+0303: The system shall allow family members to link elderly user profiles to their account.
+0304: High
+0305: Family Member
+0306: FR-007
+0307: The system shall maintain role-based access control (RBAC) ensuring each user role sees only permitted features.
+0308: High
+0309: System
+0310: 2.5.2 Health Monitoring Module
+0311: Req ID
+0312: Description
+0313: Priority
+0314: Actor
+0315: FR-010
+0316: The system shall allow manual input of vital readings: heart rate, blood pressure, glucose, temperature, and SpO2.
+0317: High
+0318: Elderly User
+0319: FR-011
+0320: The system shall store all vital readings with timestamps in the database.
+0321: High
+0322: System
+0323: FR-012
+0324: The system shall display vital trends as charts over 7-day, 30-day, and 90-day intervals.
+0325: High
+0326: Family/Caregiver
+0327: FR-013
+0328: The system shall trigger push notification alerts when any vital reading exceeds predefined safe thresholds.
+0329: High
+0330: System
+0331: FR-014
+0332: The system shall allow family members or caregivers to set medication schedules with medication name, dosage, and frequency.
+0333: High
+0334: Family/Caregiver
+0335: FR-015
+0336: The system shall send push notifications and SMS 30 minutes before and at the time of each scheduled medication.
+0337: High
+0338: System
+0339: FR-016
+0340: The system shall allow scheduling of doctor appointments with date, time, doctor name, and clinic details.
+0341: Medium
+0342: Family/Caregiver
+0343: FR-018
+0344: The system shall allow elderly users to mark medications as 'Taken' or 'Missed' directly from the notification.
+0345: High
+0346: Elderly User
+0347: 2.5.3 AI Companionship Chatbot Module
+0348: Req ID
+0349: Description
+0350: Priority
+0351: Actor
+0352: FR-020
+0353: The system shall provide a conversational chatbot accessible from the elderly user's home screen.
+0354: High
+0355: Elderly User
+0356: FR-021
+0357: The chatbot shall respond to conversational inputs with contextually appropriate, empathetic replies using the OpenAI GPT API.
+0358: High
+0359: System
+0360: FR-022
+0361: The chatbot shall initiate daily greeting messages and wellness check-in prompts at configurable times.
+0362: Medium
+0363: System
+0364: FR-023
+0365: The chatbot shall provide medication and appointment reminders through friendly conversational prompts.
+0366: High
+0367: System
+0368: FR-024
+0369: The system shall log all chatbot interactions with timestamps, viewable by family members on the dashboard.
+0370: Medium
+0371: Family/Caregiver
+0372: FR-025
+0373: The chatbot shall detect distress-indicator keywords and immediately alert the linked family member.
+0374: High
+0375: System
+0376: FR-026
+0377: The chatbot shall offer light cognitive exercises and word games to provide mental stimulation.
+0378: Low
+0379: System
+0380: 2.5.4 Emergency Alert System
+0381: Req ID
+0382: Description
+0383: Priority
+0384: Actor
+0385: FR-040
+0386: The system shall display a prominent, always-visible SOS button on the elderly user's portal home screen.
+0387: High
+0388: Elderly User
+0389: FR-041
+0390: Upon SOS activation, the system shall send push notification, SMS, and email to all emergency contacts within 10 seconds.
+0391: High
+0392: System
+0393: FR-042
+0394: The system shall detect fall events using device accelerometer and gyroscope data monitoring.
+0395: High
+0396: System
+0397: FR-043
+0398: Upon fall detection, the system shall display a 30-second dismissal prompt before sending an automatic alert.
+0399: High
+0400: System
+0401: FR-044
+0402: The system shall share the elderly user's live GPS location with all emergency contacts for 30 minutes following SOS activation.
+0403: High
+0404: System
+0405: FR-045
+0406: All emergency events shall be logged with timestamp, GPS coordinates, alert type, and notification delivery status.
+0407: High
+0408: System
+0409: 2.5.5 GPS & Geofencing Module
+0410: Req ID
+0411: Description
+0412: Priority
+0413: Actor
+0414: FR-050
+0415: The system shall track elderly user GPS coordinates at configurable intervals (1 min, 5 min, 15 min).
+0416: High
+0417: System
+0418: FR-051
+0419: The system shall allow family members to define a geofence safe zone on an interactive map.
+0420: High
+0421: Family Member
+0422: FR-052
+0423: The system shall send an immediate multi-channel alert to all family members when the elderly user exits the geofence.
+0424: High
+0425: System
+0426: FR-053
+0427: The system shall maintain a location history log accessible to family members for the past 30 days.
+0428: Medium
+0429: Family Member
+0430: FR-054
+0431: The system shall alert family members when the elderly user's device battery level drops below 15%.
+0432: High
+0433: System
+0434: FR-055
+0435: Family members shall be able to request an on-demand real-time location update ('Find Me' feature).
+0436: High
+0437: Family Member
+0438: 2.6 Non-Functional Requirements
+0439: Category
+0440: Requirement
+0441: Standard / Target
+0442: Priority
+0443: Performance
+0444: Page load time for family dashboard
+0445: < 3 seconds
+0446: High
+0447: Performance
+0448: Emergency alert dispatch time after SOS trigger
+0449: < 10 seconds
+0450: High
+0451: Performance
+0452: API response time for standard data queries
+0453: < 500ms
+0454: High
+0455: Reliability
+0456: System uptime excluding planned maintenance
+0457: > 99.9%
+0458: High
+0459: Scalability
+0460: Support horizontal scaling for growing user base
+0461: Horizontal scaling
+0462: Medium
+0463: Security
+0464: Data in transit encryption
+0465: TLS 1.2+
+0466: High
+0467: Security
+0468: Health records and location data encryption at rest
+0469: AES-256
+0470: High
+0471: Security
+0472: API rate limiting per authenticated user
+0473: 100 req/min
+0474: Medium
+0475: Usability
+0476: Elderly user portal UI accessibility compliance
+0477: WCAG 2.1 AA
+0478: High
+0479: Compatibility
+0480: Cross-browser support for latest two versions
+0481: Chrome, Firefox, Safari, Edge
+0482: High
+0483: Compatibility
+0484: Responsive design for tablet viewports
+0485: 768px+
+0486: Medium
+0487: Chapter 3
+0488: Design Document
+0489: 3.1 Introduction
+0490: A design document in the context of software development is a comprehensive, detailed layout of how a software application will look and function. It acts as a blueprint that clearly depicts what is to be built, how it operates, how it looks, and what components it consists of. The design document is critical in application development for several reasons:
+0491: Clear Understanding: Ensures all stakeholders have a detailed understanding of how the software is supposed to function and how different parts interact.
+0492: Guideline for Developers: Provides developers with a clear guideline to follow, reducing confusion and potential mistakes during coding.
+0493: Consistency: Ensures consistency in design and implementation, especially in large teams working on different parts of the same application.
+0494: Predictability: Helps predict potential issues and conflicts by requiring a thorough review of the planned application design before coding starts.
+0495: Communication Tool: Allows new team members, stakeholders, or external reviewers to understand the design and function of the application quickly.
+0496: Documentation: Serves as documentation for future reference or if modifications need to be made later.
+0497: 3.2 System Architecture
+0498: Nigahbaan follows a three-tier architecture with an additional AI/integration layer, implemented as a cloud-hosted, scalable SaaS platform. This architectural pattern provides clear separation of concerns, enabling independent development, testing, and scaling of each layer.
+0499: Tier / Layer
+0500: Components & Responsibilities
+0501: Presentation Tier
+0502: React.js Web Application — two distinct role-based interfaces: a simplified Elderly User Portal and a feature-rich Family/Caregiver Dashboard, both served as Single Page Applications (SPA). Deployed on Vercel CDN for low-latency global access.
+0503: Application Tier
+0504: Node.js + Express.js RESTful API server. Handles all business logic, user authentication, data validation, third-party API orchestration, notification dispatch, and real-time WebSocket communication via Socket.IO.
+0505: Data Tier
+0506: MongoDB Atlas cloud-hosted NoSQL database. Stores all user profiles, health records, medication schedules, GPS location history, chatbot conversation logs, emergency alert records, and audit trails. Multi-region replica sets ensure high availability.
+0507: Integration Layer
+0508: External services: OpenAI GPT API (chatbot), Google Maps API (GPS/geofencing), Firebase Cloud Messaging (push notifications), Twilio (SMS), SendGrid (email), and Cloudinary (PDF/media storage).
+0509: 3.3 Technology Stack
+0510: Category
+0511: Technology
+0512: Purpose
+0513: Version
+0514: Frontend (Web)
+0515: React.js
+0516: SPA framework for family/caregiver dashboard. Component-based architecture, Redux Toolkit for state.
+0517: 18.x
+0518: Frontend (Elderly)
+0519: React.js (Simplified View)
+0520: Dedicated elderly-first interface with large fonts, high contrast, and persistent SOS button.
+0521: 18.x
+0522: Backend
+0523: Node.js + Express.js
+0524: Non-blocking I/O for real-time event-driven workloads (GPS updates, live alerts).
+0525: 20 LTS
+0526: Real-Time
+0527: Socket.IO
+0528: WebSocket library enabling live GPS updates and instant alert display without page reload.
+0529: 4.x
+0530: Database
+0531: MongoDB Atlas
+0532: Flexible NoSQL document model for varied health data schemas. Cloud-hosted with managed backups.
+0533: 7.x
+0534: ODM
+0535: Mongoose
+0536: Schema validation, data type enforcement, and elegant query API on top of MongoDB.
+0537: 7.x
+0538: Authentication
+0539: JWT + BCrypt.js
+0540: Stateless JWT authentication supporting horizontal scaling. BCrypt (cost factor 12) for password security.
+0541: Latest
+0542: AI / Chatbot
+0543: OpenAI GPT-3.5-Turbo
+0544: Industry-leading NLP model for natural, empathetic conversational responses for elderly companionship.
+0545: Latest
+0546: Push Notifications
+0547: Firebase Cloud Messaging
+0548: Google's reliable push notification infrastructure for browser push delivery to family members.
+0549: Latest
+0550: SMS Alerts
+0551: Twilio SMS API
+0552: Reliable global SMS delivery for emergency alerts with programmatic delivery status callbacks.
+0553: Latest
+0554: Email
+0555: SendGrid / NodeMailer
+0556: Transactional email for account verification, password resets, and email-channel emergency alerts.
+0557: Latest
+0558: Maps / GPS
+0559: Google Maps API
+0560: Interactive GPS location display, geofence polygon definition, and location history visualization.
+0561: Latest
+0562: Hosting (Frontend)
+0563: Vercel
+0564: Zero-configuration CDN hosting for React.js SPA with automatic HTTPS and global edge network.
+0565: Latest
+0566: Styling
+0567: Tailwind CSS
+0568: Utility-first CSS framework enabling rapid, consistent UI development.
+0569: 3.x
+0570: 3.4 UML Diagrams
+0571: 3.4.1 Use Case Diagram
+0572: The Use Case Diagram illustrates all high-level interactions between the platform's actors and its system boundaries. Nigahbaan defines four distinct actors with specific roles and permissions.
+0573: SYSTEM BOUNDARY: Nigahbaan Platform
+0574: Actors: 
+0575: Elderly User (Primary)
+0576: Family Member / Guardian
+0577: Caregiver / Doctor
+0578: System Administrator
+0579: System (Automated)
+0580: Use Cases:
+0581: UC-001: User Registration & Authentication
+0582: UC-002: Record & View Health Vitals
+0583: UC-003: Medication Reminder Management
+0584: UC-004: SOS Emergency Alert
+0585: UC-005: AI Chatbot Interaction
+0586: UC-006: Monitor Family Dashboard
+0587: UC-007: GPS Tracking & Geofencing
+0588: UC-008: Fall Detection Alert
+0589: UC-009: Generate & Download Health Report
+0590: UC-010: Admin User Management
+0591: Use Case ID
+0592: Use Case Name
+0593: Primary Actor(s)
+0594: UC-001
+0595: User Registration & Authentication
+0596: All Users
+0597: UC-002
+0598: Record & View Health Vitals
+0599: Elderly User, Caregiver
+0600: UC-003
+0601: Medication Reminder Management
+0602: Family Member, Caregiver, System
+0603: UC-004
+0604: SOS Emergency Alert
+0605: Elderly User, System
+0606: UC-005
+0607: AI Chatbot Interaction
+0608: Elderly User, System
+0609: UC-006
+0610: Monitor Family Dashboard
+0611: Family Member, Caregiver
+0612: UC-007
+0613: GPS Tracking & Geofencing
+0614: Family Member, System
+0615: UC-008
+0616: Fall Detection Alert
+0617: System, Elderly User
+0618: UC-009
+0619: Generate & Download Health Report
+0620: Family Member, Caregiver
+0621: UC-010
+0622: Admin User Management
+0623: System Administrator
+0624: 3.4.2 Use Case Reports
+0625: The following use case reports define the detailed specifications for each primary system interaction.
+0626: Use Case: User Registration & Authentication
+0627: USE-CASE ID
+0628: UC-001
+0629: Purpose
+0630: Allow new users to register, verify their accounts, and authenticate to access the Nigahbaan platform.
+0631: Actor
+0632: All Users (Elderly, Family Member, Caregiver, Admin)
+0633: Pre-Condition
+0634: User must access the registration page. User must have a valid email address.
+0635: Post-Condition
+0636: User account is created, email is verified, and the user can log into their role-specific dashboard.
+0637: Success Scenario
+0638: 1. User navigates to registration page. 2. User enters full name, email, phone, role, and password. 3. System validates all inputs. 4. System sends email verification link. 5. User clicks verification link. 6. Account is activated. 7. User logs in and is redirected to role-appropriate dashboard.
+0639: Extensions & Alternatives
+0640: a. If email is already registered, system shows error message. b. If password does not meet strength requirements, warning message appears. c. If verification link expires (15 min), user can request a new one.
+0641: Use Case: SOS Emergency Alert
+0642: USE-CASE ID
+0643: UC-004
+0644: Purpose
+0645: Enable elderly users to instantly trigger an emergency alert dispatched to all registered emergency contacts via multiple channels.
+0646: Actor
+0647: Elderly User, System
+0648: Pre-Condition
+0649: Elderly user must be logged in. Emergency contacts must be registered by the family member.
+0650: Post-Condition
+0651: Emergency alert dispatched via push, SMS, and email. Alert logged in the database. GPS location shared for 30 minutes.
+0652: Success Scenario
+0653: 1. Elderly user clicks the prominently displayed SOS button. 2. System captures current GPS coordinates. 3. System creates an alert record in the database. 4. System simultaneously sends push notification (FCM), SMS (Twilio), and email (SendGrid) to all emergency contacts within 10 seconds. 5. Family Dashboard displays a full-screen emergency banner via WebSocket. 6. System begins sending GPS updates every 60 seconds for 30 minutes.
+0654: Extensions & Alternatives
+0655: a. If API fails for one channel, system retries and logs failure. b. If GPS is unavailable, last known location is shared. c. If alert is unacknowledged after 2 hours, escalation notification sent to secondary contacts.
+0656: Use Case: AI Chatbot Interaction
+0657: USE-CASE ID
+0658: UC-005
+0659: Purpose
+0660: Provide an NLP-powered conversational chatbot for daily engagement, medication reminders, and emotional support for elderly users.
+0661: Actor
+0662: Elderly User, System (OpenAI API)
+0663: Pre-Condition
+0664: Elderly user must be logged in. Valid OpenAI API credentials must be configured.
+0665: Post-Condition
+0666: Chatbot interaction is logged. Distress indicators, if detected, trigger a family alert.
+0667: Success Scenario
+0668: 1. System sends daily greeting at configurable time. 2. Elderly user sends a message. 3. System relays message to OpenAI GPT API with conversation history. 4. API returns an empathetic response. 5. System checks response and user message for distress keywords. 6. System displays response on screen. 7. Conversation is logged in ChatLogs collection.
+0669: Extensions & Alternatives
+0670: a. If distress keywords detected, family member is immediately alerted. b. If OpenAI API is unavailable, system displays a fallback message. c. Cognitive exercises are offered when idle time is detected.
+0671: Use Case: GPS Tracking & Geofencing
+0672: USE-CASE ID
+0673: UC-007
+0674: Purpose
+0675: Allow family members to monitor the real-time and historical GPS location of linked elderly users and define safe geofence zones.
+0676: Actor
+0677: Family Member, System
+0678: Pre-Condition
+0679: Elderly user must have granted location permissions. Family member must be logged in and linked to the elderly user.
+0680: Post-Condition
+0681: GPS coordinates are stored. Geofence breach triggers immediate multi-channel alerts.
+0682: Success Scenario
+0683: 1. Family member opens the Family Dashboard and views the interactive map. 2. Family member defines a geofence safe zone by selecting center point and radius. 3. System continuously tracks elderly user location at configured intervals. 4. System compares coordinates against geofence boundary. 5. Upon boundary breach, system immediately sends multi-channel alerts. 6. Family member acknowledges the alert from the dashboard.
+0684: Extensions & Alternatives
+0685: a. If GPS signal is lost, last known location is displayed and family is notified. b. When battery drops below 15%, family is immediately alerted. c. Family member can trigger 'Find Me' for on-demand location update.
+0686: 3.4.3 Sequence Diagrams
+0687: The following sequence diagrams illustrate the step-by-step interaction flows for the most critical system processes.
+0688: Sequence Diagram 1: SOS Emergency Alert Trigger
+0689: Step
+0690: From → To
+0691: Description
+0692: Type
+0693: 1
+0694: Elderly User → Web Client
+0695: Clicks the prominently displayed SOS button on the portal home screen.
+0696: User Action
+0697: 2
+0698: Web Client → Browser API
+0699: Requests current GPS coordinates from the browser Geolocation API.
+0700: System Call
+0701: 3
+0702: Web Client → Backend API
+0703: Sends POST /api/v1/alerts/sos with {userId, coordinates, timestamp}.
+0704: HTTP Request
+0705: 4
+0706: Backend → Auth Middleware
+0707: Validates the JWT token in the Authorization header.
+0708: Validation
+0709: 5
+0710: Auth Middleware → Alert Service
+0711: Passes validated request to Alert Service.
+0712: Internal
+0713: 6
+0714: Alert Service → MongoDB
+0715: Creates new Alert document (alertType: 'sos', severity: 'critical').
+0716: DB Write
+0717: 7
+0718: Alert Service → FCM
+0719: Calls NotificationService.sendPush() to all linked family devices.
+0720: API Call
+0721: 8
+0722: Alert Service → Twilio
+0723: Calls NotificationService.sendSMS() to all emergency phone numbers.
+0724: API Call
+0725: 9
+0726: Alert Service → SendGrid
+0727: Calls NotificationService.sendEmail() to all emergency email addresses.
+0728: API Call
+0729: 10
+0730: Alert Service → MongoDB
+0731: Logs all notification delivery statuses per channel.
+0732: DB Write
+0733: 11
+0734: Backend API → Web Client
+0735: Returns HTTP 200 confirming alert dispatched successfully.
+0736: HTTP Response
+0737: 12
+0738: Location Service → MongoDB
+0739: Begins sending GPS coordinate updates every 60 seconds for 30 minutes.
+0740: System Loop
+0741: 13
+0742: Socket.IO → Family Dashboard
+0743: Pushes real-time emergency alert, displaying full-screen emergency banner.
+0744: WebSocket
+0745: Sequence Diagram 2: AI Chatbot Interaction Flow
+0746: Step
+0747: From → To
+0748: Description
+0749: Type
+0750: 1
+0751: System → Elderly User
+0752: Daily greeting message sent at configured time.
+0753: Scheduled Event
+0754: 2
+0755: Elderly User → Chatbot UI
+0756: User types a message (or uses voice input) in the chat interface.
+0757: User Action
+0758: 3
+0759: Web Client → Backend API
+0760: Sends POST /api/v1/chat/message with {userId, message}.
+0761: HTTP Request
+0762: 4
+0763: Backend → Chatbot Module
+0764: Retrieves last 10 conversation messages from ChatLogs for context.
+0765: DB Read
+0766: 5
+0767: Chatbot Module → OpenAI API
+0768: Sends full conversation history + new message to GPT-3.5-Turbo API.
+0769: API Call
+0770: 6
+0771: OpenAI API → Chatbot Module
+0772: Returns empathetic AI-generated response.
+0773: API Response
+0774: 7
+0775: Chatbot Module → NLP Checker
+0776: Scans user message for distress-indicator keywords.
+0777: Internal Check
+0778: 8
+0779: NLP Checker → Alert Service
+0780: If distress detected, triggers family member alert (push + SMS).
+0781: Conditional
+0782: 9
+0783: Chatbot Module → MongoDB
+0784: Logs conversation message (role, content, timestamp) to ChatLogs collection.
+0785: DB Write
+0786: 10
+0787: Backend API → Web Client
+0788: Returns AI response to display in the chat interface.
+0789: HTTP Response
+0790: Sequence Diagram 3: Medication Reminder Flow
+0791: Step
+0792: From → To
+0793: Description
+0794: Type
+0795: 1
+0796: Node-cron → Scheduler
+0797: Scheduler fires on a 60-second interval on the backend server.
+0798: Scheduled Event
+0799: 2
+0800: Scheduler → MongoDB
+0801: Queries Medications collection for records matching current time (±1 min window).
+0802: DB Query
+0803: 3
+0804: Scheduler → Users Collection
+0805: Fetches FCM device token for matched elderly user.
+0806: DB Read
+0807: 4
+0808: Reminder Service → FCM
+0809: Sends push notification: 'Time to take [MedicationName] — [Dosage].'
+0810: API Call
+0811: 5
+0812: System → MongoDB
+0813: Logs reminder sent event in medication adherence records.
+0814: DB Write
+0815: 6
+0816: After 30 min → Twilio
+0817: If medication not marked 'Taken', sends SMS follow-up automatically.
+0818: Conditional
+0819: 7
+0820: System → Family Dashboard
+0821: Sends 'medication reminder sent' log entry via WebSocket to dashboard.
+0822: WebSocket
+0823: 8
+0824: Elderly User → Web Client
+0825: Elderly user clicks 'Taken' or 'Missed' in notification or portal page.
+0826: User Action
+0827: 9
+0828: Web Client → Backend API
+0829: Sends PATCH /api/v1/medications/:id/adherence with {status: 'taken'/'missed'}.
+0830: HTTP Request
+0831: 10
+0832: Backend → MongoDB
+0833: Updates adherence log: {date, status, timestamp}.
+0834: DB Write
+0835: 3.4.4 State Chart Diagrams
+0836: State charts describe the lifecycle of key system objects and processes within Nigahbaan.
+0837: State Chart 1: Alert Lifecycle
+0838: State
+0839: Description & Transitions
+0840: Triggered
+0841: Alert document created in database upon SOS trigger or fall detection. Notification dispatch begins immediately. → Transitions to 'Notifying'.
+0842: Notifying
+0843: System actively sending push/SMS/email notifications simultaneously. Delivery statuses being recorded per channel with timestamps. → Transitions to 'Pending Acknowledgement'.
+0844: Pending Acknowledgement
+0845: All notifications dispatched. Awaiting family member acknowledgement action from dashboard. → Transitions to 'Acknowledged' or 'Expired' after 2 hours.
+0846: Acknowledged
+0847: Family member clicked 'Acknowledge' on the Family Dashboard. Alert marked as resolved with timestamp and resolver user ID. Terminal state.
+0848: Expired (Unacknowledged)
+0849: Alert not acknowledged within 2 hours. Escalation notification sent to secondary emergency contacts. Expiry flag set on alert record.
+0850: State Chart 2: GPS Tracking States
+0851: State
+0852: Description & Transitions
+0853: Tracking Disabled
+0854: User has not granted location permission or tracking has been manually disabled. No location data collected.
+0855: Tracking Active
+0856: Background location service running. GPS updates sent to the backend at the configured interval (1/5/15 min). Normal operation.
+0857: Inside Safe Zone
+0858: Current GPS coordinates fall within the defined geofence polygon. No boundary-related alerts. Normal tracking continues.
+0859: Outside Safe Zone
+0860: Geofence boundary breach detected. Immediate multi-channel alert triggered. Family members notified. Alert logged in database.
+0861: Low Battery — Tracking Slowed
+0862: Device battery drops below 20%. GPS update interval reduced to preserve battery life. Family members notified of low battery status.
+0863: Offline / No GPS Signal
+0864: Device lost connectivity or GPS signal. Last known location retained. Family members notified of tracking interruption.
+0865: 3.4.5 Class Diagram
+0866: The Class Diagram describes the structure of the Nigahbaan system by showing the key classes, their attributes, methods, and the relationships among objects. The diagram follows UML conventions as part of the Unified Modeling Language standard.
+0867: CLASS DIAGRAM: Nigahbaan System
+0868: User
+0869: Attributes:
+0870: • _id: ObjectId
+0871: • fullName: String
+0872: • email: String
+0873: • passwordHash: String
+0874: • role: Enum
+0875: • phone: String
+0876: • linkedElderlyIds: ObjectId[]
+0877: • emergencyContacts: Object[]
+0878: Methods:
+0879: • register()
+0880: • login()
+0881: • resetPassword()
+0882: • linkUser()
+0883: • updateProfile()
+0884: VitalRecord
+0885: Attributes:
+0886: • _id: ObjectId
+0887: • userId: ObjectId
+0888: • timestamp: Date
+0889: • heartRate: Number
+0890: • bloodPressure: Object
+0891: • glucoseLevel: Number
+0892: • temperature: Number
+0893: • spo2: Number
+0894: • alertTriggered: Boolean
+0895: Methods:
+0896: • save()
+0897: • getTrends()
+0898: • checkThresholds()
+0899: Alert
+0900: Attributes:
+0901: • _id: ObjectId
+0902: • userId: ObjectId
+0903: • alertType: Enum [sos|fall|geo|vitals]
+0904: • severity: Enum [critical|warning|info]
+0905: • timestamp: Date
+0906: • location: GeoPoint
+0907: • notificationsSent: Object[]
+0908: • resolvedAt: Date
+0909: Methods:
+0910: • trigger()
+0911: • sendNotifications()
+0912: • resolve()
+0913: ChatSession
+0914: Attributes:
+0915: • _id: ObjectId
+0916: • userId: ObjectId
+0917: • sessionDate: Date
+0918: • messages: Object[]
+0919: • distressDetected: Boolean
+0920: • distressAlertSent: Boolean
+0921: Methods:
+0922: • sendMessage()
+0923: • detectDistress()
+0924: • escalate()
+0925: • getHistory()
+0926: Relationship
+0927: Description
+0928: User → VitalRecord (1:N)
+0929: One elderly User can have many VitalRecord entries. Each record links back to a single userId.
+0930: User → Alert (1:N)
+0931: One elderly User can generate many Alert records over time.
+0932: User → ChatSession (1:N)
+0933: One elderly User can have many ChatSession documents (one per day or per session).
+0934: User → LocationRecord (1:N)
+0935: One elderly User has many LocationRecord entries forming their location history trail.
+0936: Family Member → Elderly User (M:N)
+0937: A family member can monitor multiple elderly users; an elderly user can have multiple family members linked.
+0938: Alert → NotificationService (uses)
+0939: Alert class calls NotificationService to dispatch push, SMS, and email notifications.
+0940: 3.5 Database Schema
+0941: MongoDB is selected as the database for its flexible document model, which is well-suited to the varied and schema-evolving nature of health and location data. MongoDB Atlas provides managed replication, automated backups, and 99.995% SLA uptime.
+0942: 3.5.1 Users Collection
+0943: Field
+0944: Type
+0945: Description
+0946: _id
+0947: ObjectId
+0948: Auto-generated unique identifier (MongoDB primary key)
+0949: fullName
+0950: String
+0951: Full name of the user. Required field.
+0952: email
+0953: String
+0954: Unique email address used for authentication and notifications.
+0955: passwordHash
+0956: String
+0957: BCrypt hashed password (cost factor 12). Never stored in plaintext.
+0958: role
+0959: Enum
+0960: 'elderly' | 'family' | 'caregiver' | 'admin'
+0961: phone
+0962: String
+0963: Phone number for SMS notifications.
+0964: linkedElderlyIds
+0965: ObjectId[]
+0966: Array of elderly user IDs linked to this account (for family members).
+0967: emergencyContacts
+0968: Object[]
+0969: Array of {name, phone, email, relationship} objects.
+0970: fcmToken
+0971: String
+0972: Firebase Cloud Messaging device token for push notifications.
+0973: emailVerified
+0974: Boolean
+0975: Confirmed email verification status.
+0976: geofence
+0977: Object
+0978: {center: {lat, lng}, radiusMeters} — geofence definition for elderly users.
+0979: createdAt
+0980: Date
+0981: Account creation timestamp (auto-managed by Mongoose).
+0982: 3.5.2 VitalRecords Collection
+0983: Field
+0984: Type
+0985: Description
+0986: _id
+0987: ObjectId
+0988: Auto-generated vital record ID
+0989: userId
+0990: ObjectId
+0991: Elderly user this vital record belongs to
+0992: timestamp
+0993: Date
+0994: When the vitals reading was recorded
+0995: heartRate
+0996: Number
+0997: Heart rate in beats per minute (bpm)
+0998: bloodPressure
+0999: Object
+1000: {systolic: Number, diastolic: Number} in mmHg
+1001: glucoseLevel
+1002: Number
+1003: Blood glucose level in mg/dL
+1004: temperature
+1005: Number
+1006: Body temperature in degrees Celsius
+1007: spo2
+1008: Number
+1009: Oxygen saturation percentage (SpO2 %)
+1010: alertTriggered
+1011: Boolean
+1012: True if any vital exceeded the safe threshold, triggering an alert
+1013: notes
+1014: String
+1015: Optional clinical notes added by caregiver
+1016: 3.5.3 Medications Collection
+1017: Field
+1018: Type
+1019: Description
+1020: _id
+1021: ObjectId
+1022: Auto-generated medication record ID
+1023: userId
+1024: ObjectId
+1025: Elderly user this medication belongs to
+1026: medicationName
+1027: String
+1028: Name of the medication (e.g., Metformin 500mg)
+1029: dosage
+1030: String
+1031: Dosage instructions (e.g., '500mg with meal')
+1032: frequency
+1033: Enum
+1034: 'once-daily' | 'twice-daily' | 'three-times-daily' | 'as-needed'
+1035: scheduledTimes
+1036: String[]
+1037: Array of HH:mm time strings for reminder dispatch
+1038: startDate
+1039: Date
+1040: When the medication course begins
+1041: endDate
+1042: Date
+1043: Optional end date for the medication course. Null if ongoing.
+1044: adherenceLogs
+1045: Object[]
+1046: Array of {date, status: 'taken'/'missed', timestamp} records
+1047: 3.5.4 Alerts Collection
+1048: Field
+1049: Type
+1050: Description
+1051: _id
+1052: ObjectId
+1053: Auto-generated alert ID
+1054: userId
+1055: ObjectId
+1056: Elderly user who triggered the alert
+1057: alertType
+1058: Enum
+1059: 'sos' | 'fall' | 'geofence' | 'vitals' | 'battery'
+1060: severity
+1061: Enum
+1062: 'critical' | 'warning' | 'info'
+1063: timestamp
+1064: Date
+1065: When the alert event was triggered
+1066: location
+1067: GeoPoint
+1068: GPS coordinates captured at the time of the alert
+1069: notificationsSent
+1070: Object[]
+1071: Array of {channel: 'push'/'sms'/'email', status, sentAt} delivery records
+1072: resolvedAt
+1073: Date
+1074: Timestamp when a family member acknowledged and resolved the alert
+1075: resolvedBy
+1076: ObjectId
+1077: User ID of the family member who performed the acknowledgement
+1078: 3.6 API Design
+1079: The Nigahbaan REST API follows consistent conventions: Base URL https://api.nigahbaan-platform.com/api/v1, JSON request/response format, Bearer JWT token in Authorization header for all protected endpoints.
+1080: Method
+1081: Endpoint
+1082: Description
+1083: Auth
+1084: POST
+1085: /auth/register
+1086: Register new user. Body: {fullName, email, password, role, phone}.
+1087: Public
+1088: POST
+1089: /auth/login
+1090: Authenticate and receive JWT. Body: {email, password}.
+1091: Public
+1092: POST
+1093: /auth/forgot-password
+1094: Trigger password reset email. Body: {email}.
+1095: Public
+1096: GET
+1097: /users/:id
+1098: Retrieve user profile.
+1099: JWT
+1100: PUT
+1101: /users/:id
+1102: Update user profile or emergency contacts.
+1103: JWT
+1104: POST
+1105: /health/vitals
+1106: Log new vitals reading. Body: {heartRate, bloodPressure, glucose, temperature, spo2}.
+1107: JWT
+1108: GET
+1109: /health/vitals/:userId
+1110: Get vitals history. Query: {from, to, limit}.
+1111: JWT
+1112: GET
+1113: /health/trends/:userId
+1114: Get aggregated vitals trend data for chart rendering.
+1115: JWT
+1116: POST
+1117: /health/medications
+1118: Create medication schedule. Body: {medicationName, dosage, frequency, scheduledTimes}.
+1119: JWT
+1120: PATCH
+1121: /health/medications/:id/adherence
+1122: Log medication taken or missed. Body: {status: 'taken'/'missed'}.
+1123: JWT
+1124: POST
+1125: /alerts/sos
+1126: Trigger SOS emergency. Body: {coordinates}. Dispatches all notifications immediately.
+1127: JWT
+1128: GET
+1129: /alerts/:userId
+1130: Get alert history. Query: {type, severity, limit}.
+1131: JWT
+1132: PATCH
+1133: /alerts/:id/acknowledge
+1134: Mark alert as acknowledged. Auth: family member role only.
+1135: JWT
+1136: POST
+1137: /location/update
+1138: Submit new GPS coordinates. Body: {latitude, longitude, accuracy, batteryLevel}.
+1139: JWT
+1140: GET
+1141: /location/live/:userId
+1142: Get most recent location update.
+1143: JWT
+1144: PUT
+1145: /location/geofence/:userId
+1146: Define or update geofence safe zone. Body: {center, radiusMeters}.
+1147: JWT
+1148: POST
+1149: /chat/message
+1150: Send message to chatbot. Body: {message}. Returns AI response.
+1151: JWT
+1152: GET
+1153: /chat/history/:userId
+1154: Get chatbot conversation log.
+1155: JWT
+1156: GET
+1157: /reports/health/:userId
+1158: Generate and download PDF health report. Query: {from, to}.
+1159: JWT
+1160: Chapter 4
+1161: Security & Deployment Architecture
+1162: 4.1 Security Design
+1163: 4.1.1 Authentication Architecture
+1164: Nigahbaan implements stateless JWT-based authentication, which eliminates the need for server-side session storage and is inherently compatible with horizontal scaling. The authentication flow is:
+1165: Registration: User password is hashed with BCrypt using a cost factor of 12 before storage. The password is never stored, logged, or transmitted in plaintext at any point.
+1166: Login: BCrypt comparison is performed between the submitted password and the stored hash. On successful verification, a JWT is generated with payload containing {userId, role, issuedAt, expiresAt}. Token expiry is set to 24 hours.
+1167: Refresh Tokens: A separate long-lived refresh token (7-day expiry) is issued simultaneously and stored as an HttpOnly, Secure cookie for silent session re-authentication.
+1168: JWT Secret: A 256-bit cryptographically random secret stored exclusively as an environment variable — never committed to source code or version control.
+1169: 4.1.2 Role-Based Access Control (RBAC)
+1170: Role
+1171: Permitted Actions
+1172: Elderly User
+1173: Log vitals, use chatbot, view own health data and medication schedule, trigger SOS button, update own profile settings.
+1174: Family Member
+1175: View all health data, GPS location, and alerts for linked elderly users. Configure geofences, medication schedules, and emergency contacts. Download health reports. Acknowledge alerts.
+1176: Caregiver / Doctor
+1177: View health data and medication schedules for assigned elderly users only. Add clinical notes. Cannot modify emergency contacts, geofences, or family-level configurations.
+1178: System Administrator
+1179: Full access to all user accounts, system configuration, audit logs. Ability to suspend, deactivate, or delete accounts. Access to platform-wide analytics.
+1180: 4.1.3 Data Protection Measures
+1181: Transport Security: All data in transit encrypted using TLS 1.2 or higher, enforced at the load balancer / reverse proxy level.
+1182: Storage Security: Sensitive fields including all health records and location history encrypted at rest using MongoDB Atlas Encryption at Rest (AES-256).
+1183: API Rate Limiting: 100 requests per minute per authenticated user; 20 requests per minute for unauthenticated public endpoints. Implemented via express-rate-limit middleware.
+1184: Injection Prevention: All database interactions use Mongoose parameterized queries. All incoming user input validated and sanitized using express-validator middleware.
+1185: CORS Policy: Strict CORS configuration allows requests only from whitelisted frontend origins (production web application domain only).
+1186: Security Headers: Helmet.js middleware adds Content-Security-Policy, X-Frame-Options, and X-XSS-Protection headers to all API responses.
+1187: 4.2 Deployment Architecture
+1188: Component
+1189: Platform
+1190: Details
+1191: SLA
+1192: Backend API Server
+1193: Render / Heroku
+1194: Node.js containerized with Docker. Horizontally scalable via managed auto-scaling. Zero-downtime deployments via rolling updates.
+1195: 99.9%
+1196: Web Dashboard
+1197: Vercel
+1198: React.js SPA served from global CDN edge network. Automatic HTTPS. Preview deployments on pull requests.
+1199: 99.99%
+1200: Elderly User Portal
+1201: Vercel
+1202: React.js elderly portal with role-based routing, sharing the same Vercel deployment as the main dashboard.
+1203: 99.99%
+1204: Database
+1205: MongoDB Atlas (M10+)
+1206: Multi-region replica set with automated daily backups, point-in-time recovery, and 99.995% SLA uptime guarantee.
+1207: 99.995%
+1208: Push Notifications
+1209: Firebase Cloud Messaging
+1210: Google's reliable infrastructure for browser push notification delivery to logged-in family members.
+1211: 99.9%
+1212: SMS Gateway
+1213: Twilio
+1214: Global SMS delivery for emergency alerts with programmatic delivery status callbacks for audit logging.
+1215: 99.95%
+1216: Email Service
+1217: SendGrid
+1218: Transactional email infrastructure for account verification, password resets, and email-channel alerts.
+1219: 99.99%
+1220: Media / Files
+1221: Cloudinary / AWS S3
+1222: Generated PDF health reports and optional profile images stored with CDN delivery for fast downloads.
+1223: 99.9%
+1224: 4.2.1 CI/CD Pipeline
+1225: Version Control: GitHub repository with three primary branches: main (production), develop (integration), and feature/* (individual feature branches).
+1226: Automated Testing: GitHub Actions pipeline runs ESLint code linting, Jest unit tests, and integration test suites on every pull request before merge approval.
+1227: Deployment: Merges to main trigger automatic deployment to production environments via platform-specific deployment webhooks (Vercel and Render).
+1228: Environment Variables: All secrets (JWT signing secret, API keys, database connection URI) stored in platform-specific environment variable managers. Zero secrets committed to any code repository.
+1229: Monitoring: Application performance and error monitoring via Sentry integration for both frontend and backend components.
+1230: Chapter 5
+1231: Risk Analysis & Feasibility
+1232: 5.1 Technical Feasibility
+1233: The Nigahbaan system is fully buildable using modern, well-documented, and widely supported technologies with large developer communities. React.js, Node.js, and MongoDB represent the current industry standard for full-stack web development.
+1234: Third-party APIs including OpenAI (chatbot intelligence), Firebase Cloud Messaging (push notifications), Google Maps Platform (GPS/geofencing), and Twilio (SMS alerts) offer reliable, well-documented services with free or low-cost tiers sufficient for development and initial deployment phases.
+1235: 5.2 Operational Feasibility
+1236: The user interface design strategy prioritizes accessibility for the platform's most technically vulnerable user group — elderly individuals. The Elderly User Portal is designed with a strict elderly-first philosophy:
+1237: Minimum 18pt font throughout the elderly portal.
+1238: High-contrast color scheme with minimum 4.5:1 contrast ratio.
+1239: Simplified navigation with no more than four primary options per page.
+1240: Prominently positioned SOS button visible at all times without scrolling.
+1241: Browser-native voice input support for text fields.
+1242: Comprehensive guided onboarding walkthrough for first-time users.
+1243: 5.3 Economic Feasibility
+1244: The Nigahbaan project leverages primarily open-source technologies and free-tier cloud services, keeping development costs minimal. The long-term commercial viability is supported by a subscription-based revenue model targeting:
+1245: Individual families: Monthly subscription per elderly profile.
+1246: Professional caregivers and healthcare providers: Professional plan with multi-patient management.
+1247: Institutional clients including nursing homes: Enterprise plan with bulk licensing.
+1248: 5.4 Risk Identification & Mitigation
+1249: Risk
+1250: Impact
+1251: Probability
+1252: Mitigation Strategy
+1253: Data Privacy & Security Breach
+1254: High
+1255: Low
+1256: End-to-end TLS encryption, AES-256 at-rest encryption, JWT with 24-hour expiry, API rate limiting, input sanitization, and regular security audits.
+1257: Dependence on Third-Party APIs
+1258: Medium
+1259: Medium
+1260: Graceful error handling and fallback mechanisms for all external API calls. SMS as fallback for push notification failures. Cached last-known location when GPS API is unavailable.
+1261: Emergency Alert Delivery Failure
+1262: High
+1263: Low
+1264: Multi-channel alert delivery (push + SMS + email simultaneously). Delivery status tracking with automatic retry on failure. Escalation to secondary contacts if primary contacts are unresponsive.
+1265: Low Adoption by Elderly Users
+1266: Medium
+1267: Medium
+1268: Simplified, elderly-first UI/UX design. Large text and touch targets. Onboarding tutorials. Caregiver-assisted setup. Ongoing usability testing with target demographic.
+1269: GPS Accuracy Limitations
+1270: Medium
+1271: Medium
+1272: Accuracy readings stored and displayed with each location update. Geofence radius defaulted to a practical minimum (50 meters) to account for typical GPS variance.
+1273: OpenAI API Quota / Cost Overrun
+1274: Medium
+1275: Medium
+1276: Conversation history limited to last 10 messages per API call to control token usage. Rate limiting on chatbot endpoint. Budget alerts configured in OpenAI API dashboard.
+1277: Fall Detection False Positives
+1278: Medium
+1279: High
+1280: 30-second confirmation prompt displayed to elderly user before alert dispatch. User can dismiss false alerts. Accelerometer threshold tuned based on testing data.
+1281: Legal & Liability Exposure
+1282: High
+1283: Low
+1284: Clear Terms of Service with limitation of liability clauses. Platform-as-facilitator legal model. Mandatory arbitration clauses. Consultation with legal advisor on health data handling.
+1285: Chapter 6
+1286: Project Management
+1287: 6.1 Development Methodology
+1288: The Nigahbaan project follows an Agile Software Development methodology, organized into iterative bi-weekly sprints. This approach allows for progressive development of functional modules, continuous integration of feedback from the project supervisor, and the flexibility to adapt to evolving requirements or technical discoveries during development. Each sprint concludes with a working, testable deliverable and a sprint review session with the supervisor.
+1289: 6.2 Team Roles & Responsibilities
+1290: Team Member (Roll Number)
+1291: Primary Responsibilities
+1292: Zainab Anwaar (F22BB002)
+1293: Project Lead, Backend API Development (Node.js/Express.js), Authentication Module, Database Schema Design
+1294: Rabia Haider (F22BB012)
+1295: Elderly User Portal Development (React.js), Elderly-First UI/UX Design, SOS Alert Module
+1296: Areeba Farooq (F22BB014)
+1297: Frontend Web Development (React.js), Family Dashboard, Health Trend Charts, PDF Report Generation
+1298: Zarafshan Ashraf (F22BB020)
+1299: AI/ML Integration (OpenAI Chatbot), GPS Module, Geofencing, Third-Party API Integrations, System Testing
+1300: 6.3 Project Timeline
+1301: Phase
+1302: Duration
+1303: Key Deliverables
+1304: Literature Review & Research
+1305: Week 1 – 3
+1306: Research report, gap analysis of existing elderly care platforms, competitor feature comparison
+1307: Requirement Analysis
+1308: Week 4 – 5
+1309: SRS document, use case definitions, entity relationship mapping, user story development
+1310: System Design
+1311: Week 6 – 7
+1312: Architecture diagrams, database schema, API specification, UI/UX wireframes for all user types
+1313: Development — Core Modules
+1314: Week 8 – 10
+1315: Authentication system, health monitoring module, medication reminders, family dashboard skeleton
+1316: Development — AI & Safety Features
+1317: Week 11 – 12
+1318: OpenAI chatbot integration, GPS tracking, geofencing, SOS alert system, fall detection
+1319: Testing & Quality Assurance
+1320: Week 13 – 14
+1321: Unit tests (Jest), integration testing, user acceptance testing (UAT), performance testing
+1322: Deployment & Documentation
+1323: Week 15 – 16
+1324: Cloud deployment (Vercel, Render, MongoDB Atlas), final report completion, presentation preparation
+1325: 6.4 Testing Strategy
+1326: A multi-layered testing approach is employed to ensure the platform meets all functional requirements, performs reliably, and delivers an accessible experience for elderly users:
+1327: Unit Testing: Jest test suites for individual service functions and utility modules. Focus on health threshold checking logic, geofence boundary calculations, JWT validation, and password hashing verification.
+1328: Integration Testing: Supertest-based API endpoint testing validating correct HTTP responses, authentication enforcement, and database interactions for all major endpoints.
+1329: User Acceptance Testing (UAT): Testing sessions conducted with representative users from each user class — elderly individuals, family members, and caregivers — to validate usability, accessibility, and feature completeness.
+1330: End-to-End Testing: Full workflow tests covering complete user journeys such as registration → SOS alert trigger → family acknowledgement, and medication schedule creation → reminder delivery → adherence logging.
+1331: Performance Testing: Load testing using Artillery.io to verify API response times remain within specified thresholds under concurrent user loads.
+1332: Accessibility Testing: Manual testing with screen readers and the WAVE accessibility evaluation tool to verify WCAG 2.1 Level AA compliance for the elderly user portal.
+1333: Chapter 7
+1334: Web Application
+1335: Nigahbaan is a Web Application developed to provide comprehensive, AI-powered elderly care and monitoring through a suite of role-based interfaces. The platform offers distinct experiences for elderly users, family members, and caregivers — each designed with their specific needs and technical proficiency in mind. The elderly-facing portal adheres to strict accessibility standards, while the family and caregiver dashboards provide rich, data-driven monitoring capabilities.
+1336: 7.1 Elderly User Portal
+1337: 7.1.1 Elderly User Home Screen
+1338: The Elderly User Home Screen is designed with an elderly-first philosophy: minimum 18pt fonts throughout, high-contrast color scheme, simplified navigation with no more than four primary options, and a prominently displayed SOS button visible at all times without scrolling. Key elements on the home screen include:
+1339: Prominent, always-visible Emergency SOS button (minimum 72x72dp touch target).
+1340: Today's medication schedule at a glance.
+1341: Quick access to the AI Chatbot companion.
+1342: Current health vitals summary.
+1343: Navigation to Health Input, Appointments, and Profile Settings.
+1344: Figure 7.1 — Elderly User Home Screen (Portal)
+1345: [ Screenshot Placeholder ]
+1346: Figure 7.1 — Elderly User Home Screen (Portal)
+1347: 7.1.2 Health Vitals Input Screen
+1348: The Health Vitals Input Screen allows elderly users to log their daily vital readings through a simplified, accessible form. The screen includes large, clearly labeled input fields for:
+1349: Heart Rate (bpm)
+1350: Blood Pressure (Systolic / Diastolic mmHg)
+1351: Blood Glucose Level (mg/dL)
+1352: Body Temperature (°C)
+1353: Oxygen Saturation SpO2 (%)
+1354: Upon submission, the system processes the readings against predefined safe thresholds and immediately alerts family members if any value falls outside the normal range.
+1355: Figure 7.2 — Health Vitals Input Screen
+1356: [ Screenshot Placeholder ]
+1357: Figure 7.2 — Health Vitals Input Screen
+1358: 7.1.3 AI Chatbot Companion Screen
+1359: The AI Chatbot Companion Screen provides elderly users with a friendly, accessible conversational interface. The chatbot initiates daily wellness check-ins, provides medication reminders through conversational prompts, offers light cognitive exercises, and provides emotional support. The interface features:
+1360: Large text bubbles with high-contrast colors.
+1361: Voice input option via browser Web Speech API.
+1362: Simple, one-tap 'Send' button.
+1363: Daily greeting message from the chatbot at a configurable time.
+1364: Figure 7.3 — AI Chatbot Companion Screen
+1365: [ Screenshot Placeholder ]
+1366: Figure 7.3 — AI Chatbot Companion Screen
+1367: 7.1.4 Medication Schedule Screen
+1368: The Medication Schedule Screen presents the elderly user's complete medication schedule in a clear, easy-to-read format. For each medication, the screen displays the medication name, dosage instructions, and scheduled time(s). Users can mark medications as 'Taken' or 'Missed' with a single tap, and the system logs this adherence data for family review.
+1369: Figure 7.4 — Medication Schedule Screen
+1370: [ Screenshot Placeholder ]
+1371: Figure 7.4 — Medication Schedule Screen
+1372: 7.1.5 SOS Emergency Alert Screen
+1373: The SOS Emergency Alert Screen is accessible from the home screen at all times. Upon pressing the SOS button:
+1374: A confirmation dialog prevents accidental triggering.
+1375: Upon confirmation, the system instantly dispatches push notifications, SMS, and email to all emergency contacts.
+1376: The screen displays a 'Help is on the way' confirmation message with contact details.
+1377: GPS location is shared with emergency contacts for 30 minutes.
+1378: Figure 7.5 — SOS Emergency Alert Confirmation Screen
+1379: [ Screenshot Placeholder ]
+1380: Figure 7.5 — SOS Emergency Alert Confirmation Screen
+1381: 7.2 Family Dashboard
+1382: 7.2.1 Family Dashboard Home
+1383: The Family Dashboard Home provides family members with a comprehensive, real-time overview of all linked elderly users. The dashboard displays:
+1384: Summary cards for each linked elderly user showing name, last active time, latest vitals, and current alert count.
+1385: An active alerts notification feed in reverse chronological order.
+1386: Quick access links to GPS tracking, medication adherence, and health reports.
+1387: System-wide statistics: total alerts today, medication adherence rate, and last health data entry time.
+1388: Figure 7.6 — Family Dashboard Home Screen
+1389: [ Screenshot Placeholder ]
+1390: Figure 7.6 — Family Dashboard Home Screen
+1391: 7.2.2 Health Monitoring Dashboard
+1392: The Health Monitoring Dashboard provides family members with detailed, longitudinal health trend visualizations for a linked elderly user. The screen features:
+1393: Interactive line charts displaying vital trends over 7-day, 30-day, and 90-day intervals.
+1394: Color-coded threshold indicators (green = normal, amber = warning, red = critical).
+1395: A chronological table of all recent vital readings with timestamps.
+1396: One-click download of a PDF health summary report for the selected date range.
+1397: Figure 7.7 — Health Monitoring & Trend Charts Screen
+1398: [ Screenshot Placeholder ]
+1399: Figure 7.7 — Health Monitoring & Trend Charts Screen
+1400: 7.2.3 GPS Tracking & Geofencing Screen
+1401: The GPS Tracking & Geofencing Screen provides family members with a real-time interactive map showing the current and historical location of linked elderly users. Features include:
+1402: Live GPS position marker on an embedded Google Maps interface.
+1403: Geofence safe zone definition: click to set center point and drag to adjust radius.
+1404: Location history trail visualization for the past 30 days.
+1405: 'Find Me' button to request an on-demand real-time location update.
+1406: Battery level indicator for the elderly user's device.
+1407: Figure 7.8 — GPS Tracking & Geofencing Map Screen
+1408: [ Screenshot Placeholder ]
+1409: Figure 7.8 — GPS Tracking & Geofencing Map Screen
+1410: 7.2.4 Alert Management Screen
+1411: The Alert Management Screen provides a comprehensive log of all emergency alerts and health notifications for linked elderly users. Family members can:
+1412: View all alerts in reverse chronological order with type, severity, timestamp, and GPS coordinates.
+1413: Filter alerts by type (SOS, fall, geofence, vitals, battery) and severity.
+1414: Acknowledge open alerts with a single click.
+1415: View the delivery status (push/SMS/email) for each alert notification channel.
+1416: Figure 7.9 — Alert Management & History Screen
+1417: [ Screenshot Placeholder ]
+1418: Figure 7.9 — Alert Management & History Screen
+1419: 7.2.5 Medication Management Screen
+1420: The Medication Management Screen allows family members to add, edit, and manage medication schedules for linked elderly users. The screen includes:
+1421: A complete list of all scheduled medications with dosage and frequency.
+1422: Medication adherence calendar showing taken/missed status for each day.
+1423: Overall adherence rate percentage for the current month.
+1424: 'Add Medication' and 'Edit Schedule' controls for managing prescriptions.
+1425: Figure 7.10 — Medication Management Screen
+1426: [ Screenshot Placeholder ]
+1427: Figure 7.10 — Medication Management Screen
+1428: 7.2.6 Chatbot Interaction Log Screen
+1429: The Chatbot Interaction Log Screen allows family members and caregivers to review the AI chatbot conversations with linked elderly users. The screen shows:
+1430: Daily conversation summaries with timestamps.
+1431: Distress alert indicators highlighted in red for sessions where distress keywords were detected.
+1432: Full conversation transcript accessible by clicking on any session.
+1433: Notification history showing when family member escalation alerts were triggered.
+1434: Figure 7.11 — Chatbot Interaction Log Screen
+1435: [ Screenshot Placeholder ]
+1436: Figure 7.11 — Chatbot Interaction Log Screen
+1437: 7.3 Registration & Authentication Screens
+1438: 7.3.1 Registration Screen
+1439: Users who wish to use Nigahbaan must register first. The Registration Screen includes fields for:
+1440: Full Name
+1441: Email Address
+1442: Phone Number
+1443: Role Selection (Elderly / Family Member / Caregiver)
+1444: Password and Confirm Password
+1445: Once the user submits the form, a verification email is sent. Clicking the verification link successfully activates the user's account, allowing them to access the platform and set up their profile.
+1446: Figure 7.12 — User Registration Screen
+1447: [ Screenshot Placeholder ]
+1448: Figure 7.12 — User Registration Screen
+1449: 7.3.2 Login Screen
+1450: Registered users can log into their accounts by providing their email address and password. The system authenticates credentials against the BCrypt hash stored in the database and issues a JWT token upon success. Incorrect credentials prompt appropriate error messages such as 'Invalid Email' or 'Incorrect Password', guiding users to rectify their input. A 'Forgot Password' link provides access to the secure password reset flow.
+1451: Figure 7.13 — User Login Screen
+1452: [ Screenshot Placeholder ]
+1453: Figure 7.13 — User Login Screen
+1454: 7.4 User Settings Screen
+1455: The User Settings Screen allows all users to update their personal profile information. Users can:
+1456: Update their full name and profile picture.
+1457: Change their password (requires current password verification).
+1458: Manage emergency contacts (for elderly users and family members).
+1459: Configure notification preferences (push/SMS/email toggles).
+1460: Set the AI chatbot greeting time preference.
+1461: Figure 7.14 — User Settings & Profile Screen
+1462: [ Screenshot Placeholder ]
+1463: Figure 7.14 — User Settings & Profile Screen
+1464: 7.5 Caregiver Dashboard
+1465: Professional caregivers assigned to elderly users access a dedicated role-specific dashboard that provides:
+1466: A list of all assigned elderly users with health status summaries.
+1467: Read access to health records, vital trends, and medication schedules for assigned users.
+1468: Clinical notes input panel for adding care observations.
+1469: Real-time alert delivery for health emergencies involving assigned users.
+1470: Medication adherence overview for all assigned elderly users.
+1471: Figure 7.15 — Caregiver Dashboard Screen
+1472: [ Screenshot Placeholder ]
+1473: Figure 7.15 — Caregiver Dashboard Screen
+1474: Chapter 8
+1475: Conclusion & Recommendations
+1476: 8.1 Conclusion
+1477: The development of Nigahbaan represents a meaningful, technically substantive, and socially impactful response to one of the most pressing societal challenges of the contemporary era: ensuring the dignity, continuous safety, and emotional wellbeing of elderly individuals in an increasingly fragmented, geographically dispersed society.
+1478: By thoughtfully integrating five distinct but deeply interconnected capability pillars — real-time health monitoring with automated alerting, AI-powered conversational companionship, a comprehensive remote Family Dashboard, an emergency SOS and fall detection system, and GPS-based geofencing for dementia patient safety — Nigahbaan successfully fills the critical gap that every existing fragmented solution has individually failed to address.
+1479: The platform is built on a robust, scalable, and modern technology foundation: a React.js web application with two distinct role-based interfaces — a simplified Elderly User Portal designed with elderly-first accessibility principles, and a comprehensive Family Dashboard providing real-time monitoring capabilities — powered by a Node.js + Express.js backend API and a MongoDB Atlas cloud database engineered for high availability and health data durability.
+1480: The system's modular architecture ensures that each component can be independently developed, rigorously tested, and progressively deployed. The security design — encompassing JWT authentication, BCrypt password hashing, TLS encryption in transit, AES-256 encryption at rest, and comprehensive role-based access control — ensures that the platform handles sensitive health and location data with the rigor this category of information demands.
+1481: Nigahbaan achieves its core project objectives: it empowers families to maintain meaningful, real-time visibility into the wellbeing of their elderly loved ones regardless of geographical distance; it provides elderly individuals with a dignified, accessible system that enhances their safety and combats their isolation; and it gives caregivers the digital tools they need to deliver higher-quality, data-informed care.
+1482: 8.2 Recommendations for Future Enhancements
+1483: The following enhancements are recommended for post-launch development phases:
+1484: Phase 2 Enhancements
+1485: IoT Wearable Device Integration: Full integration with Bluetooth Low Energy (BLE) smartwatches and medical wearables (e.g., Mi Band, Apple Watch, Fitbit) for passive, automated, continuous health vitals monitoring — eliminating reliance on manual data entry.
+1486: AI Health Anomaly Detection: Implementation of a machine learning-based anomaly detection model that compares incoming vitals against each elderly user's personal baseline (7-day rolling average) to proactively identify unusual patterns before they escalate to a clinical emergency.
+1487: Voice Assistant Interface: Development of a browser-based voice interaction mode for the elderly user portal, leveraging the Web Speech API to enable users with limited digital literacy, visual impairment, or arthritis to interact through natural spoken voice commands.
+1488: Urdu Language Support: Full Urdu-language localization of both the elderly user portal and family dashboard to significantly broaden accessibility for elderly users in Pakistan and across South Asia.
+1489: Phase 3 Enhancements
+1490: Telemedicine Module: Integration of an in-app video consultation feature enabling elderly users to conduct direct, scheduled consultations with their assigned doctors without leaving the Nigahbaan platform.
+1491: Advanced Predictive Analytics: Development of a comprehensive predictive health insights dashboard for healthcare professionals and family members, analyzing longitudinal health data trends to forecast risk periods and enable proactive intervention.
+1492: Multi-Caregiver Marketplace: Expansion of the caregiver integration module into a fully featured marketplace where families can search, vet, and engage verified professional caregivers based on qualifications, reviews, location, and availability.
+1493: Community & Social Features: Introduction of curated social engagement features including moderated community forums, virtual group activities, and peer connection tools specifically designed for elderly users to combat social isolation.
+1494: References
+1495: The following sources, technologies, and documentation resources informed the design and development of the Nigahbaan platform:
+1496: OpenAI. (2024). GPT-3.5-Turbo API Reference. OpenAI Developer Documentation. https://platform.openai.com/docs/models/gpt-3-5
+1497: Google LLC. (2024). Google Maps Platform Documentation — Maps JavaScript API & Geolocation API. https://developers.google.com/maps/documentation
+1498: Firebase Documentation. (2024). Firebase Cloud Messaging (FCM) — Send Messages to Multiple Devices. Google LLC. https://firebase.google.com/docs/cloud-messaging
+1499: Twilio Inc. (2024). Twilio Programmable SMS API Documentation. https://www.twilio.com/docs/sms
+1500: MongoDB Inc. (2024). MongoDB Atlas Documentation — Cloud Database Service. https://www.mongodb.com/docs/atlas/
+1501: Mongoose. (2024). Mongoose ODM Documentation v7.x — Object Document Mapper for MongoDB. https://mongoosejs.com/docs/
+1502: Web Accessibility Initiative (WAI). (2024). Making Content Usable for People with Cognitive and Learning Disabilities. W3C. https://www.w3.org/TR/coga-usability/
+1503: Socket.IO Team. (2024). Socket.IO Documentation — WebSocket Real-Time Communication Guide. https://socket.io/docs/v4/
+1504: React.js Team. (2024). React Documentation — Hooks, Context, and SPA Architecture. Meta Open Source. https://react.dev/
+1505: Node.js Foundation. (2024). Node.js Documentation v20 LTS. https://nodejs.org/en/docs/
+1506: Express.js Team. (2024). Express.js API Reference v4.x. https://expressjs.com/en/api.html
+1507: Auth0 by Okta. (2024). JSON Web Tokens Introduction — jwt.io. https://jwt.io/introduction/
+1508: World Health Organization. (2022). Ageing and Health Fact Sheet. https://www.who.int/news-room/fact-sheets/detail/ageing-and-health
+1509: Vercel Inc. (2024). Vercel Platform Documentation — Deployment and CDN. https://vercel.com/docs
+1510: Tailwind Labs. (2024). Tailwind CSS Documentation v3. https://tailwindcss.com/docs
+1511: SendGrid by Twilio. (2024). SendGrid Email API Documentation. https://docs.sendgrid.com/
+1512: Cloudinary. (2024). Cloudinary Documentation — Image and Video Management. https://cloudinary.com/documentation
+1513: W3C. (2018). Web Content Accessibility Guidelines (WCAG) 2.1. https://www.w3.org/TR/WCAG21/
+1514: Pressman, R. S., & Maxim, B. R. (2020). Software Engineering: A Practitioner's Approach (9th ed.). McGraw-Hill Education.
+1515: Sommerville, I. (2016). Software Engineering (10th ed.). Pearson Education Limited.
+1516: Institute of Business & Information Technology (IBIT)
+1517: University of the Punjab, Lahore, Pakistan
+1518: Final Year Project Report — Spring 2026

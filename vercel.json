@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "nighebaan",
   "builds": [
     {
       "src": "package.json",
@@ -9,6 +10,6 @@
   ],
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/.*", "dest": "/index.html" }
   ]
 }

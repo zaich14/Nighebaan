@@ -63,6 +63,23 @@ npm start
 
 The server will start on `http://localhost:5000`
 
+## Deploying the Backend
+
+For other devices and remote clients, the backend must be publicly available.
+
+1. Deploy the backend to a public host (Render, Railway, Heroku, DigitalOcean, etc.).
+2. Set environment variables on the host:
+   - `PORT` (optional)
+   - `MONGODB_URI`
+   - `JWT_SECRET`
+   - `NODE_ENV=production`
+   - `CORS_ORIGINS=*` or your frontend domain
+3. Use the public backend URL in the frontend by setting:
+   - `REACT_APP_API_BASE_URL=https://your-backend-url/api`
+   - `REACT_APP_SOCKET_URL=https://your-backend-url`
+
+When the frontend is deployed on Vercel, these values should be configured in Vercel environment variables.
+
 ## Seed Database
 
 To populate the database with test data:

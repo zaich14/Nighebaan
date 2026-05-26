@@ -130,17 +130,42 @@ const startServer = async () => {
   const dbConnected = await connectDB();
 
   if (dbConnected || process.env.NODE_ENV === "development") {
-    if (dbConnected) await removeDuplicateUsers();
-    server.listen(PORT, () => {
-      console.log(`\n✓ Server is running on http://localhost:${PORT}`);
-      console.log(`✓ API base URL: http://localhost:${PORT}/api`);
-      console.log(`✓ Health check: http://localhost:${PORT}/api/health-check`);
-      console.log(`✓ Socket.IO is running`);
-      if (!dbConnected) {
-        console.log(`⚠️  MongoDB not connected - using mock data mode`);
-      }
-      console.log('\n');
-    });
+      if (dbConnected) await removeDuplicateUsers();
+
+      const tryListen = (port, attemptsLeft = 5) => {
+        // Remove previous error listeners to avoid duplicate handling
+        server.removeAllListeners('error');
+
+        server.listen(port, () => {
+          console.log(`\n✓ Server is running on http://localhost:${port}`);
+          console.log(`✓ API base URL: http://localhost:${port}/api`);
+          console.log(`✓ Health check: http://localhost:${port}/api/health-check`);
+          console.log(`✓ Socket.IO is running`);
+          if (!dbConnected) {
+            console.log(`⚠️  MongoDB not connected - using mock data mode`);
+          }
+          console.log('\n');
+        });
+
+        server.once('error', (err) => {
+          if (err && err.code === 'EADDRINUSE') {
+            console.warn(`Port ${port} is already in use.`);
+            if (attemptsLeft > 0) {
+              const nextPort = Number(port) + 1;
+              console.log(`Trying port ${nextPort}... (${attemptsLeft} attempts left)`);
+              setTimeout(() => tryListen(nextPort, attemptsLeft - 1), 300);
+            } else {
+              console.error('All retry attempts failed. Exiting.');
+              process.exit(1);
+            }
+          } else {
+            console.error('Server error:', err);
+            process.exit(1);
+          }
+        });
+      };
+
+      tryListen(PORT);
   } else {
     console.error("Failed to connect to database. Server not started.");
     process.exit(1);

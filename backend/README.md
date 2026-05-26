@@ -26,16 +26,26 @@ Complete Node.js/Express backend for the Elderly Care System frontend.
 
 2. **Configure environment variables:**
    
-   Edit `.env` file and set your configuration:
+   Copy `.env.example` to `.env` and edit the values as needed:
+   ```bash
+   cp .env.example .env
    ```
+
+   Edit `.env` and set your configuration:
+   ```dotenv
    PORT=5000
    MONGODB_URI=mongodb://localhost:27017/elderly-care
    JWT_SECRET=your_jwt_secret_key_change_this_in_production
    NODE_ENV=development
    ```
 
-   For MongoDB Atlas, use:
+   To use a different port, change the `PORT` value. For example:
+   ```dotenv
+   PORT=6000
    ```
+
+   For MongoDB Atlas, use:
+   ```dotenv
    MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/elderly-care
    ```
 

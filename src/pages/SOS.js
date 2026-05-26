@@ -15,7 +15,7 @@ export default function SOS() {
   const [patient, setPatient] = useState(null);
   const [health, setHealth]   = useState(null);
   const [alerts, setAlerts]   = useState([]);
-  const [doctor, setDoctor]   = useState({ name: "Dr. Ahmed Khan", clinic: "City Heart Institute", phone: "+92 42 555 0821", address: "Rashid St. Building 4" });
+  const [doctor] = useState({ name: "Dr. Ahmed Khan", clinic: "City Heart Institute", phone: "+92 42 555 0821", address: "Rashid St. Building 4" });
 
   const [showModal, setShowModal]         = useState(false);
   const [sosSent, setSosSent]             = useState(false);

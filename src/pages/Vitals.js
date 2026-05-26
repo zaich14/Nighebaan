@@ -35,7 +35,7 @@ const MOCK_PRESCRIPTIONS = {
 
 export default function Vitals() {
   const navigate = useNavigate();
-  const [user, setUser]               = useState(null);
+  const [, setUser]               = useState(null);
   const [latest, setLatest]           = useState(null);
   const [records, setRecords]         = useState([]);
   const [loading, setLoading]         = useState(true);
@@ -98,8 +98,7 @@ export default function Vitals() {
       .finally(() => setLoading(false));
   }, [navigate]);
 
-  const fmt = (v, unit = "", fallback = "—") =>
-    v !== undefined && v !== null ? `${v}${unit}` : fallback;
+  // `fmt` removed (unused) to avoid build failures caused by ESLint warnings on CI.
 
   const bpStr = latest?.bloodPressure
     ? `${latest.bloodPressure.systolic}/${latest.bloodPressure.diastolic} mmHg`

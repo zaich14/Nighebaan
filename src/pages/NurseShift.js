@@ -129,7 +129,6 @@ export default function NurseShift() {
   };
 
   // ── Checkup records ─────────────────────────────────────────────────────
-  const nurseIdKey = nurse?.id || nurse?._id;
   // Mock records attributed to this nurse's ID (mock-user-11 or mock-user-12)
   // For display purposes we show all mock records and attribute by recordedBy
   const checkups = MOCK_HEALTH_RECORDS

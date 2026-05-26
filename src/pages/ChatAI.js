@@ -76,7 +76,6 @@ function TypingIndicator() {
 
 function ChatAI() {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(null);
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -92,7 +91,7 @@ function ChatAI() {
   useEffect(() => {
     const userData = localStorage.getItem("user");
     if (!userData) { navigate("/login"); return; }
-    try { setCurrentUser(JSON.parse(userData)); } catch { navigate("/login"); }
+    try { JSON.parse(userData); } catch { navigate("/login"); }
   }, [navigate]);
 
   useEffect(() => {

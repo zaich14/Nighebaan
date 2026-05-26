@@ -69,7 +69,6 @@ export default function AdminRegistrations() {
     }
   };
 
-  const roles = ["all", "user", "doctor", "nurse", "caregiver"];
   const filtered = filter === "all" ? pending : pending.filter((u) => u.role === filter);
 
   return (

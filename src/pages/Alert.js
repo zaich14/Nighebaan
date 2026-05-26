@@ -45,7 +45,32 @@ function Alerts() {
     },
   ];
 
-  useEffect(() => {
+// Move demo alerts to module level so hook deps are stable
+const SAMPLE_ALERTS = [
+  {
+    id: 1,
+    title: "Low Activity Detected",
+    message: "Activity has been low during your usual walk time.",
+    time: "Today 08:10",
+    severity: "medium",
+  },
+  {
+    id: 2,
+    title: "Elevated Heart Rate",
+    message: "Heart rate was elevated while resting.",
+    time: "Yesterday 21:30",
+    severity: "high",
+  },
+  {
+    id: 3,
+    title: "Glucose Trend Alert",
+    message: "Glucose is trending higher after lunch.",
+    time: "Mon 14:05",
+    severity: "low",
+  },
+];
+
+useEffect(() => {
     // Get current user info
     const userData = localStorage.getItem("user");
     let currentUserId = null;
@@ -80,12 +105,12 @@ function Alerts() {
     getAlerts()
       .then((res) => {
         const data = res.data?.data || res.data;
-        setAlerts(Array.isArray(data) ? data : sampleAlerts);
+        setAlerts(Array.isArray(data) ? data : SAMPLE_ALERTS);
       })
       .catch((err) => {
         console.error("Failed to fetch alerts:", err);
         setError("Backend not available. Showing demo alert summary.");
-        setAlerts(sampleAlerts);
+        setAlerts(SAMPLE_ALERTS);
       });
 
     return () => {

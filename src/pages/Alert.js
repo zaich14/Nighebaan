@@ -59,7 +59,17 @@ function Alerts() {
       }
     }
 
-    const socket = io("http://localhost:5000");
+    const getDefaultSocketUrl = () => {
+      if (typeof window === "undefined") {
+        return "http://localhost:5000";
+      }
+      const hostname = window.location.hostname;
+      const protocol = window.location.protocol;
+      return `${protocol}//${hostname}:5000`;
+    };
+
+    const socketUrl = process.env.REACT_APP_SOCKET_URL || getDefaultSocketUrl();
+    const socket = io(socketUrl);
     socket.on("connect", () => {
       console.log("Socket connected:", socket.id);
     });

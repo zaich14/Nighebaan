@@ -1,7 +1,18 @@
 import axios from "axios";
 
+const getDefaultApiBaseUrl = () => {
+  if (typeof window === "undefined") {
+    return "http://localhost:5000/api";
+  }
+
+  const hostname = window.location.hostname;
+  const protocol = window.location.protocol;
+  return `${protocol}//${hostname}:5000/api`;
+};
+
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || getDefaultApiBaseUrl();
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: BASE_URL,
 });
 
 // Add token to requests if it exists

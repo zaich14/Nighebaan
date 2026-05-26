@@ -34,7 +34,7 @@ const upload = multer({
 
 const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(",").map((origin) => origin.trim())
-  : ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"];
+  : ["*"];
 
 const io = new Server(server, {
   cors: {
